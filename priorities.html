@@ -22,9 +22,6 @@
     </div>
   </nav>
   <div class="container">
-    <h1>
-      priorities
-    </h1>
     <form onsubmit="return addNewPriority(event)">
       <div class="form-group">
         <label for="exampleInputEmail1">Priority</label>
@@ -103,12 +100,14 @@
       var currentPriorities = priorities
         .sort((x,y) => x.level - y.level)
         .map(x => {
+          var makeHigherDisabled = x.level === 1 ? "disabled": "";
+          var makeLowerDisabled = x.level === priorities.length ? "disabled": "";
           return `<li id="prior" class="list-group-item">
           <span class="badge badge-primary badge-pill"> ${x.level} </span>
           <span>${x.name}</span>
           <span class="float-buttons">
-            <button onclick="return makeHigherPriority('${x.name}')" type="button" class="btn btn-sm btn-outline-primary">Make Higher Priority</button>
-            <button onclick="return makeLowerPriority('${x.name}')" type="button" class="btn btn-sm btn-outline-secondary">Make Lower Priority</button>
+            <button ${makeHigherDisabled} onclick="return makeHigherPriority('${x.name}')" type="button" class="btn btn-sm btn-outline-primary">Make Higher Priority</button>
+            <button ${makeLowerDisabled} onclick="return makeLowerPriority('${x.name}')" type="button" class="btn btn-sm btn-outline-secondary">Make Lower Priority</button>
             <button onclick="return deletePriority('${x.name}')" type="button" class="btn btn-sm btn-outline-secondary">X</button>
           </span>
           </li>`
@@ -119,8 +118,9 @@
 
 // Trying to create a delete button
 function deletePriority(name) {
-    var mistakePriority = name.target.value;
-    $(mistakePriority).remove(mistakePriority);
+  var priority = priorities.find(p => p.name === name);
+  
+    priority.splice();
     }
 
     drawPriorities()
@@ -131,6 +131,43 @@ function deletePriority(name) {
 //   var currentLi = 
 //   $(currentPriorities).remove(currentPriorities)
 // }
+  </script>
+
+  <script>
+  // var mapPractice =[1,2,3]
+  // console.log(mapPractice)
+  // function callback(e){
+  //   return e + 1
+  // }
+  // mapPractice.map(callback)
+  // var newArray = mapPractice.map(callback)
+  // console.log(newArray)
+
+  // var mapPractice =['Terry','Nate','Sarah','Natasha']
+  // console.log(mapPractice)
+  // function callback(e){
+  //   return 'Hello ' + e
+  // }
+  // mapPractice.map(callback)
+  // var newArray = mapPractice.map(callback)
+  // console.log(newArray)
+
+  // var mapPractice =[{name: 'Terry'},{name: 'Nate'},{name: 'Sarah'},{name: 'Natasha'}]
+  // console.log(mapPractice)
+  // function callback(e){
+  //   return 'Hello ' + e.name
+  // }
+  // mapPractice.map(callback)
+  // var newArray = mapPractice.map(callback)
+  // console.log(newArray)
+
+  var filterPractice = [{name: "zach"} , {name: "bob"}, {name: "susan"}]
+    function callback(e) {
+      console.log(e)
+      return e.name !== "bob"
+    }
+    var newArray = filterPractice.filter(callback)
+    console.log(newArray)
   </script>
 </body>
 </html>
